@@ -1,0 +1,107 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+
+<h4>搜索：</h4>
+<form class="form-horizontal">
+<div class="control-group">
+	<label class="control-label" for="trainName">火车名：</label>
+	<div class="controls">
+		<input type="text" id="trainName" ng-model="search.name" placeholder="" maxlength="10">
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="trainSpeedMin">最低速度(<=999)：</label>
+	<div class="controls">
+		<input type="number" id="trainSpeedMin" ng-model="search.speedmin" max="999">
+		<span class="add-on">公里/小时</span>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="trainSpeedMax">最高速度(<=999)：</label>
+	<div class="controls">
+		<input type="number" id="trainSpeedMax" ng-model="search.speedmax" max="999">
+		<span class="add-on">公里/小时</span>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="trainDateStart">生产日期(起始)：</label>
+	<div class="controls">
+		<input type="date" id="trainDateStart" ng-model="search.datestart">
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="trainDateEnd">生产日期(截止)：</label>
+	<div class="controls">
+		<input type="date" id="trainDateEnd" ng-model="search.dateend">
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="trainDiesel">柴油车</label>
+	<div class="controls">
+		<input type="checkbox" id="trainDiesel" ng-model="search.diesel">
+	</div>
+</div>
+</form>
+
+<hr />
+<h3>火车列表</h3>
+<div class="alert alert-info" ng-show="trains.length == 0">
+	火车列表为空
+</div>
+<table class="table table-bordered" ng-show="trains.length > 0">
+    <thead>
+        <tr>
+            <th style="text-align: center; width: 10%;">编号</th>
+            <th style="text-align: center; width: 20%;">火车名</th>
+            <th style="text-align: center; width: 20%;">最高速度</th>
+            <th style="text-align: center; width: 20%;">生产日期</th>
+            <th style="text-align: center; width: 10%;">柴油</th>
+            <th style="text-align: center; width: 20%;">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="train in trains
+				        | orderBy:predicate
+				        | filter:nameFilter(search.name)
+				        | filter:speedMinFilter(search.speedmin)
+				        | filter:speedMaxFilter(search.speedmax)
+				        | filter:dieselFilter(search.diesel)
+				        | filter:dateStartFilter(search.datestart)
+				        | filter:dateEndFilter(search.dateend)
+						| OffSetFilter:currentPage*itemsPerPage : currentPage*itemsPerPage + itemsPerPage
+				        | limitTo:itemsPerPage">
+            <td style="text-align: center; width: 10%;">{{train.id}}</td>
+            <td style="text-align: center; width: 20%;">{{train.name}}</td>
+            <td style="text-align: center; width: 20%;">{{train.speed}}</td>
+            <td style="text-align: center; width: 20%;">{{train.date}}</td>
+            <td style="text-align: center; width: 10%;"><span ng-show="train.diesel" class="icon-ok"></span></td>
+            <td style="text-align: center; width: 20%;">
+                <button class="btn btn-mini btn-danger" ng-click="removeTrainById(train.id)">删除</button>
+                <button class="btn btn-mini btn-success" ng-click="gotoTrainUpdate(train.id)">编辑</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="pagination">
+	<ul>
+		<li ng-class="prevPageDisabled()">
+			<a href ng-click="prevPage()">上一页</a>
+		</li>
+		<li ng-repeat="pageNum in getPagesNumber()" ng-class="{active: pageNum == currentPage}" ng-click="setPage(pageNum)">
+			<a href>{{pageNum + 1}}</a>
+		</li>
+		<li ng-class="nextPageDisabled()">
+			<a href ng-click="nextPage()">下一页</a>
+		</li> 
+	</ul>
+</div>
+	
+<hr />
+<div class="control-group">
+    <div class="controls">
+    	<button class="btn btn-primary" ng-click="gotoTrainAdd()">添加火车</button>
+		<button class="btn btn-danger" ng-show="trains.length >= 1" ng-click="removeTrainsList()">删除全部</button>
+	</div>
+</div>

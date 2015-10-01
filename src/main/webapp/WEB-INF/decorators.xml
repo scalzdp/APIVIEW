@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/decorators">
+    <excludes>
+        <pattern>/login</pattern>
+        <pattern>/login/</pattern>
+        <pattern>/*/json_*</pattern>
+        <pattern>/*/report*</pattern>
+        <!--<pattern>/*/detail*</pattern>-->
+    </excludes>
+    <!--<decorator name="new_theme" page="basic_theme.jsp">-->
+    <decorator name="new_theme" page="new_theme.jsp">
+        <pattern>/*/index*</pattern>
+        <pattern>/*/list*</pattern>
+        <pattern>/index</pattern>
+        <pattern>/*/*index</pattern>
+    </decorator>
+    <decorator name="fancybox" page="fancybox.jsp">
+        <pattern>/*/add*</pattern>
+        <pattern>/*/edit*</pattern>
+    </decorator>
+
+      
+
+
+</decorators>

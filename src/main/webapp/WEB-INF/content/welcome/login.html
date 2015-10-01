@@ -1,0 +1,24 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<h4>登录：</h4>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="loginName">登录名：</label>
+        <div class="controls">
+            <input type="text" id="loginName" ng-model="user.name" placeholder="" maxlength="10">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="password">密码：</label>
+        <div class="controls">
+            <input type="password" id="password" ng-model="user.password" placeholder="" maxlength="10">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="button" class="btn btn-success" ng-disabled="!user.name || !user.password" ng-hide="editMode" ng-click="login(user)">登录</button>
+            <button type="button" class="btn" ng-click="resetLoginForm()">重置</button>
+        </div>
+    </div>
+</form>

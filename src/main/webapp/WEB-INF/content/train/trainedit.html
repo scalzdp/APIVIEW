@@ -1,0 +1,38 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="trainName" >火车名：</label>
+        <div class="controls">
+            <input type="text" id="trainName" ng-model="train.name" maxlength="10">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="trainSpeed">速度(<=999)：</label>
+        <div class="controls">
+            <input class="span3" type="number" id="trainSpeed" ng-model="train.speed" max="999">
+            <span class="add-on">公里/小时</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="trainDate">生产日期：</label>
+        <div class="controls">
+            <input type="date" id="trainDate" ng-model="train.date">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="train.diesel">是否为柴油车
+            </label>
+        </div>
+        <hr />
+        <div class="controls">
+            <button type="button" class="btn btn-success" ng-disabled="!train.name || !train.speed || !train.date" ng-hide="editMode" ng-click="saveTrain(train)">添加</button>
+            <button type="button" class="btn btn-success" ng-disabled="!train.name || !train.speed || !train.date" ng-show="editMode" ng-click="updateTrain(train)">保存</button>
+            <button type="button" class="btn btn-primary" ng-click="gotoTrainsView()">返回</button>
+            <button type="button" class="btn" ng-click="resetTrainForm()">重置</button>
+        </div>
+    </div>
+</form>
