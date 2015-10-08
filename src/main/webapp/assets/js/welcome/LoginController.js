@@ -9,6 +9,15 @@ MyApp.controller('LoginController', ['LoginService', '$scope', '$location', '$ro
         LoginService.serachUser(user, $scope);
     };
 
+    $scope.gotoLoginView = function() {
+        $location.path('/loginview');
+    };
+
+    //$scope.resetTrainForm = function() {
+    //    $scope.train = {};
+    //    $scope.resetError();
+    //};
+
     $scope.resetError = function() {
         $scope.error = false;
         $scope.errorMessage = '';

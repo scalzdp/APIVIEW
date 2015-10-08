@@ -30,6 +30,7 @@ MyApp.controller('TrainAddController', ['TrainService', '$scope', '$location', f
     };
     
     $scope.editMode = false;
+    //$scope.editMode = true;
     $scope.train = {};
     $scope.resetError();
     

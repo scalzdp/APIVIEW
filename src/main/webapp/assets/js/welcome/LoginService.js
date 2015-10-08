@@ -37,7 +37,7 @@ function LoginService(resource, http) {
 
         var LoginResource = resource('login', {}, actions);
         LoginResource.query(user, function(data) {
-            scope.gotoTrainsView();
+            scope.gotoLoginView();
         }, function(error) {
             scope.setError('无法更新当前火车');
         });
