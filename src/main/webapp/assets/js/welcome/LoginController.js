@@ -13,6 +13,14 @@ MyApp.controller('LoginController', ['LoginService', '$scope', '$location', '$ro
         $location.path('/loginview');
     };
 
+    $scope.login = function(user) {
+        LoginService.login(user, $scope);
+    };
+
+    $scope.register=function(){
+        $location.path('/register');
+    };
+
     //$scope.resetTrainForm = function() {
     //    $scope.train = {};
     //    $scope.resetError();

@@ -42,4 +42,21 @@ function LoginService(resource, http) {
             scope.setError('无法更新当前火车');
         });
     };
+
+    this.login =function(user,scope){
+        //scope.resetError();
+        //var LoginResource = resource('login', {}, actions);
+        //LoginResource.query(user,"POST", function(data) {
+        //    scope.gotoLoginView();
+        //}, function(error) {
+        //    scope.setError('无法更新当前火车');
+        //});
+        http.post('login', user).success(function(data) {
+			//scope.gotoTrainsView();
+            alert(data);
+            alert("登录成功");
+    }).error(function(data) {
+        scope.setError('无法添加新的火车');
+    });
+    };
 };

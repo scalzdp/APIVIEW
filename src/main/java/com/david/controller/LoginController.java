@@ -18,6 +18,9 @@ public class LoginController {
     @RequestMapping(value="login",method= RequestMethod.POST)
     public @ResponseBody
     User postUserByLoginMessage(@RequestBody User user){
+        System.out.println(user.getName());
+        System.out.println(user.getPassword());
+
         return new User();
     }
 

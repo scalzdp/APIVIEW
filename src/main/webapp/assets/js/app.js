@@ -6,7 +6,22 @@
 
 var MyApp = angular.module('MyApp', ['ngRoute', 'ngResource']);
 
-MyApp.config(['$routeProvider', function ($routeProvider) {
+MyApp.config(['$routeProvider', function ($routeProvider, $compileProvider ,$controllerProvider) {
+
+    MyApp.resolveScriptDeps = function(dependencies){
+        return function($q,$rootScope){
+            var deferred = $q.defer();
+            $script(dependencies, function() {
+                // all dependencies have now been loaded by $script.js so resolve the promise
+                $rootScope.$apply(function()
+                {
+                    deferred.resolve();
+                });
+            });
+
+            return deferred.promise;
+        }
+    };
 
     $routeProvider.when('/trainsview', {
         templateUrl: 'trains/trainsview',
@@ -25,8 +40,20 @@ MyApp.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/login',{
         templateUrl:'login',
-        controller:'LoginController'
+        controller:'LoginController',
+        resolve:{deps:MyApp.resolveScriptDeps([
+            'assets/jquery/jquery_v1.6.2.js'
+        ])}
     });
+
+    $routeProvider.when('/register',{
+        templateUrl:'register',
+        controller:'RegisterController',
+        resolve:{deps:MyApp.resolveScriptDeps([
+            'assets/jquery/jquery_v1.6.2.js'
+        ])}
+    });
+
     $routeProvider.otherwise({redirectTo: '/trainsview'});
     
 }]);
