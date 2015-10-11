@@ -1,15 +1,18 @@
 package com.david.domain;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ZhengDaPeng on 2015/9/30.
  */
-@Component("user")
 @Entity
-@Table(name = "t_user", schema = "", catalog = "apiview")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
@@ -23,6 +26,11 @@ public class User {
     private String email;
     @Column(name="tel")
     private String tel;
+
+    @OneToMany(targetEntity=Project.class,cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name="userid",updatable=false)
+    private Set<Project> projects = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -62,5 +70,13 @@ public class User {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 }
